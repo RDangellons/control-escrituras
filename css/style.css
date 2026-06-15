@@ -998,3 +998,11 @@ body {
         align-items: center;
     }
 }
+
+/*modal grande*/
+
+.modal-large {
+    max-width: 860px;
+    max-height: 90vh;
+    overflow-y: auto;
+}

@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 if (estadoForm) {
     estadoForm.addEventListener("submit", guardarCambioEstado);
 }
+const editarForm = document.getElementById("editarForm");
+
+if (editarForm) {
+    editarForm.addEventListener("submit", guardarEdicionExpediente);
+}
 });
 
 async function cargarDetalleExpediente(id) {
@@ -330,6 +335,160 @@ async function guardarCambioEstado(e) {
 
 function mostrarMensajeEstado(texto, tipo) {
     const message = document.getElementById("estadoMessage");
+
+    message.textContent = texto;
+    message.className = "form-message";
+
+    if (tipo === "error") {
+        message.classList.add("message-error");
+    }
+
+    if (tipo === "success") {
+        message.classList.add("message-success");
+    }
+
+    if (tipo === "info") {
+        message.classList.add("message-info");
+    }
+}
+function abrirModalEditar() {
+    if (!expedienteActual) {
+        alert("Primero debe cargarse el expediente.");
+        return;
+    }
+
+    document.getElementById("edit_numero_expediente").value = expedienteActual.numero_expediente || "";
+    document.getElementById("edit_numero_escritura").value = expedienteActual.numero_escritura || "";
+    document.getElementById("edit_fecha_escritura").value = expedienteActual.fecha_escritura || "";
+    document.getElementById("edit_tipo_acto").value = expedienteActual.tipo_acto || "";
+
+    document.getElementById("edit_cliente_nombre").value = expedienteActual.cliente_nombre || "";
+    document.getElementById("edit_cliente_telefono").value = expedienteActual.cliente_telefono || "";
+    document.getElementById("edit_cliente_correo").value = expedienteActual.cliente_correo || "";
+    document.getElementById("edit_cliente_direccion").value = expedienteActual.cliente_direccion || "";
+
+    document.getElementById("edit_notaria").value = expedienteActual.notaria || "";
+    document.getElementById("edit_municipio").value = expedienteActual.municipio || "";
+    document.getElementById("edit_estado").value = expedienteActual.estado || "";
+    document.getElementById("edit_registro_publico").value = expedienteActual.registro_publico || "";
+
+    document.getElementById("edit_estado_actual").value = expedienteActual.estado_actual || "RECIBIDO";
+    document.getElementById("edit_responsable_actual").value = expedienteActual.responsable_actual || "";
+    document.getElementById("edit_observaciones").value = expedienteActual.observaciones || "";
+    document.getElementById("edit_comentario_correccion").value = "";
+
+    const message = document.getElementById("editarMessage");
+    message.textContent = "";
+    message.className = "form-message";
+
+    document.getElementById("modalEditar").style.display = "flex";
+}
+
+function cerrarModalEditar() {
+    document.getElementById("modalEditar").style.display = "none";
+}
+
+async function guardarEdicionExpediente(e) {
+    e.preventDefault();
+
+    if (!expedienteId) {
+        mostrarMensajeEditar("No se encontró el expediente.", "error");
+        return;
+    }
+
+    const data = {
+        expediente_id: expedienteId,
+
+        numero_expediente: obtenerValorEdit("edit_numero_expediente"),
+        numero_escritura: obtenerValorEdit("edit_numero_escritura"),
+        fecha_escritura: obtenerValorEdit("edit_fecha_escritura"),
+
+        cliente_nombre: obtenerValorEdit("edit_cliente_nombre"),
+        cliente_telefono: obtenerValorEdit("edit_cliente_telefono"),
+        cliente_correo: obtenerValorEdit("edit_cliente_correo"),
+        cliente_direccion: obtenerValorEdit("edit_cliente_direccion"),
+
+        tipo_acto: obtenerValorEdit("edit_tipo_acto"),
+        notaria: obtenerValorEdit("edit_notaria"),
+        municipio: obtenerValorEdit("edit_municipio"),
+        estado: obtenerValorEdit("edit_estado"),
+        registro_publico: obtenerValorEdit("edit_registro_publico"),
+
+        estado_actual: obtenerValorEdit("edit_estado_actual"),
+        responsable_actual: obtenerValorEdit("edit_responsable_actual"),
+        observaciones: obtenerValorEdit("edit_observaciones"),
+        comentario_correccion: obtenerValorEdit("edit_comentario_correccion")
+    };
+
+    if (data.numero_expediente === "") {
+        mostrarMensajeEditar("El número de expediente es obligatorio.", "error");
+        return;
+    }
+
+    if (data.cliente_nombre === "") {
+        mostrarMensajeEditar("El nombre del cliente es obligatorio.", "error");
+        return;
+    }
+
+    if (data.tipo_acto === "") {
+        mostrarMensajeEditar("El tipo de acto jurídico es obligatorio.", "error");
+        return;
+    }
+
+    if (data.estado_actual === "") {
+        mostrarMensajeEditar("El estado actual es obligatorio.", "error");
+        return;
+    }
+
+    if (data.comentario_correccion === "") {
+        mostrarMensajeEditar("Debe indicar el motivo de la corrección.", "error");
+        return;
+    }
+
+    try {
+        mostrarMensajeEditar("Guardando corrección...", "info");
+
+        const response = await fetch("../api/expedientes/actualizar.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            mostrarMensajeEditar(result.message || "No se pudo actualizar el expediente.", "error");
+            return;
+        }
+
+        mostrarMensajeEditar("Expediente actualizado correctamente.", "success");
+
+        setTimeout(() => {
+            cerrarModalEditar();
+            cargarDetalleExpediente(expedienteId);
+        }, 800);
+
+    } catch (error) {
+        console.error(error);
+        mostrarMensajeEditar("Error de conexión con el servidor.", "error");
+    }
+}
+
+function obtenerValorEdit(id) {
+    const elemento = document.getElementById(id);
+
+    if (!elemento) {
+        return "";
+    }
+
+    return elemento.value.trim();
+}
+
+function mostrarMensajeEditar(texto, tipo) {
+    const message = document.getElementById("editarMessage");
 
     message.textContent = texto;
     message.className = "form-message";
