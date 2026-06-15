@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Expediente | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html">Panel</a>
+                <a href="expedientes.html" class="active">Expedientes</a>
+                <a href="expediente-nuevo.html">Nuevo expediente</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1 id="tituloExpediente">Detalle del expediente</h1>
+                    <p>Consulta completa del expediente y su historial</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section id="detailMessage" class="table-message">
+                Cargando expediente...
+            </section>
+
+            <section id="detalleContenido" style="display: none;">
+
+                <div class="detail-header-card">
+
+                    <div>
+                        <span class="detail-label">Expediente</span>
+                        <h2 id="numeroExpediente">---</h2>
+                        <p id="clientePrincipal">---</p>
+                    </div>
+
+                    <div class="detail-status-box">
+                        <span id="estadoActualBadge" class="status-badge status-gray">
+                            ---
+                        </span>
+                        <small id="responsableActual">---</small>
+                    </div>
+
+                </div>
+
+                <div class="detail-grid">
+
+                    <article class="detail-card">
+                        <h3>Datos del expediente</h3>
+
+                        <div class="info-list">
+                            <div>
+                                <span>Número de expediente</span>
+                                <strong id="infoNumeroExpediente">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Fecha de recepción</span>
+                                <strong id="infoFechaRecepcion">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Fecha de cierre</span>
+                                <strong id="infoFechaCierre">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Creado por</span>
+                                <strong id="infoCreadoPor">---</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="detail-card">
+                        <h3>Datos del cliente</h3>
+
+                        <div class="info-list">
+                            <div>
+                                <span>Nombre</span>
+                                <strong id="infoClienteNombre">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Teléfono</span>
+                                <strong id="infoClienteTelefono">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Correo</span>
+                                <strong id="infoClienteCorreo">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Dirección</span>
+                                <strong id="infoClienteDireccion">---</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="detail-card">
+                        <h3>Datos de la escritura</h3>
+
+                        <div class="info-list">
+                            <div>
+                                <span>Número de escritura</span>
+                                <strong id="infoNumeroEscritura">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Fecha de escritura</span>
+                                <strong id="infoFechaEscritura">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Tipo de acto jurídico</span>
+                                <strong id="infoTipoActo">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Notaría</span>
+                                <strong id="infoNotaria">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Municipio</span>
+                                <strong id="infoMunicipio">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Estado</span>
+                                <strong id="infoEstado">---</strong>
+                            </div>
+
+                            <div>
+                                <span>Registro Público</span>
+                                <strong id="infoRegistroPublico">---</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="detail-card">
+                        <h3>Observaciones</h3>
+
+                        <div class="observation-box" id="infoObservaciones">
+                            Sin observaciones
+                        </div>
+                    </article>
+
+                </div>
+
+                <section class="detail-card full-width-card">
+                    <div class="section-title-row">
+                        <div>
+                            <h3>Historial del expediente</h3>
+                            <p>Bitácora de movimientos y cambios de estado.</p>
+                        </div>
+                    </div>
+
+                    <div id="historialContainer" class="timeline">
+                    </div>
+                </section>
+
+                <div class="form-actions">
+                    <a href="expedientes.html" class="btn-secondary">Regresar</a>
+                    <button type="button" class="btn-primary-btn" onclick="abrirModalEstado()">
+                        Cambiar estado
+                    </button>
+                </div>
+
+            </section>
+            <div id="modalEstado" class="modal-overlay" style="display: none;">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <div>
+                <h2>Cambiar estado</h2>
+                <p>Actualiza el estado y responsable del expediente.</p>
+            </div>
+
+            <button type="button" class="modal-close" onclick="cerrarModalEstado()">
+                ×
+            </button>
+        </div>
+
+        <form id="estadoForm">
+
+            <div class="form-group">
+                <label for="estado_nuevo">Nuevo estado *</label>
+                <select id="estado_nuevo" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="RECIBIDO">Recibido</option>
+                    <option value="EN_REVISION">En revisión</option>
+                    <option value="EN_TRASLADO">En traslado</option>
+                    <option value="PRESENTADO_INSCRIPCION">Presentado para inscripción</option>
+                    <option value="OBSERVADO">Observado</option>
+                    <option value="EN_CORRECCION">En corrección</option>
+                    <option value="REINGRESADO">Reingresado</option>
+                    <option value="INSCRITO">Inscrito</option>
+                    <option value="ENTREGADO">Entregado</option>
+                    <option value="CERRADO">Cerrado</option>
+                    <option value="DETENIDO">Detenido</option>
+                    <option value="CANCELADO">Cancelado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="responsable_nuevo">Responsable actual</label>
+                <input 
+                    type="text" 
+                    id="responsable_nuevo" 
+                    placeholder="Ej. Jurídico, gestor, Registro Público"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="comentario_estado">Comentario del movimiento *</label>
+                <textarea 
+                    id="comentario_estado" 
+                    rows="4" 
+                    placeholder="Ej. Se presentó ante Registro Público con acuse número..."
+                    required
+                ></textarea>
+            </div>
+
+            <div id="estadoMessage" class="form-message"></div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary-btn" onclick="cerrarModalEstado()">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-primary-btn">
+                    Guardar cambio
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+        </main>
+        
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/expediente-ver.js"></script>
+
+</body>
+
+</html>

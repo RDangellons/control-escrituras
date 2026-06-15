@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Expediente | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html">Panel</a>
+                <a href="expedientes.html">Expedientes</a>
+                <a href="expediente-nuevo.html" class="active">Nuevo expediente</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Nuevo expediente</h1>
+                    <p>Registro inicial de escritura y control documental</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section class="form-panel">
+
+                <form id="expedienteForm">
+
+                    <div class="form-section-title">
+                        <h2>Datos del expediente</h2>
+                        <p>Información principal de control interno.</p>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="numero_expediente">Número de expediente *</label>
+                            <input type="text" id="numero_expediente" required placeholder="Ej. EXP-2026-001">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numero_escritura">Número de escritura</label>
+                            <input type="text" id="numero_escritura" placeholder="Ej. 2456">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fecha_escritura">Fecha de escritura</label>
+                            <input type="date" id="fecha_escritura">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fecha_recepcion">Fecha de recepción *</label>
+                            <input type="date" id="fecha_recepcion" required>
+                        </div>
+
+                    </div>
+
+                    <div class="form-section-title">
+                        <h2>Datos del cliente</h2>
+                        <p>Persona relacionada con la escritura o trámite.</p>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group span-2">
+                            <label for="cliente_nombre">Nombre del cliente *</label>
+                            <input type="text" id="cliente_nombre" required placeholder="Nombre completo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cliente_telefono">Teléfono</label>
+                            <input type="text" id="cliente_telefono" placeholder="Teléfono">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cliente_correo">Correo</label>
+                            <input type="email" id="cliente_correo" placeholder="correo@ejemplo.com">
+                        </div>
+
+                        <div class="form-group span-2">
+                            <label for="cliente_direccion">Dirección</label>
+                            <textarea id="cliente_direccion" rows="2" placeholder="Domicilio del cliente"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="form-section-title">
+                        <h2>Datos de la escritura</h2>
+                        <p>Acto jurídico, notaría y registro correspondiente.</p>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="tipo_acto">Tipo de acto jurídico *</label>
+                            <select id="tipo_acto" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="Compraventa">Compraventa</option>
+                                <option value="Donación">Donación</option>
+                                <option value="Adjudicación por herencia">Adjudicación por herencia</option>
+                                <option value="Cancelación de hipoteca">Cancelación de hipoteca</option>
+                                <option value="Cesión de derechos">Cesión de derechos</option>
+                                <option value="Poder">Poder</option>
+                                <option value="Protocolización">Protocolización</option>
+                                <option value="Rectificación">Rectificación</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notaria">Notaría</label>
+                            <input type="text" id="notaria" placeholder="Ej. Notaría Pública No. 5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="municipio">Municipio</label>
+                            <input type="text" id="municipio" placeholder="Municipio">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <input type="text" id="estado" placeholder="Estado">
+                        </div>
+
+                        <div class="form-group span-2">
+                            <label for="registro_publico">Registro Público</label>
+                            <input type="text" id="registro_publico" placeholder="Oficina registral correspondiente">
+                        </div>
+
+                    </div>
+
+                    <div class="form-section-title">
+                        <h2>Estado inicial</h2>
+                        <p>Situación actual del expediente al momento del registro.</p>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="estado_actual">Estado actual</label>
+                            <select id="estado_actual">
+                                <option value="RECIBIDO">Recibido</option>
+                                <option value="EN_REVISION">En revisión</option>
+                                <option value="EN_TRASLADO">En traslado</option>
+                                <option value="PRESENTADO_INSCRIPCION">Presentado para inscripción</option>
+                                <option value="OBSERVADO">Observado</option>
+                                <option value="EN_CORRECCION">En corrección</option>
+                                <option value="REINGRESADO">Reingresado</option>
+                                <option value="INSCRITO">Inscrito</option>
+                                <option value="ENTREGADO">Entregado</option>
+                                <option value="DETENIDO">Detenido</option>
+                                <option value="CANCELADO">Cancelado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="responsable_actual">Responsable actual</label>
+                            <input type="text" id="responsable_actual" placeholder="Ej. Jurídico, gestor, Registro Público">
+                        </div>
+
+                        <div class="form-group span-2">
+                            <label for="observaciones">Observaciones</label>
+                            <textarea id="observaciones" rows="3" placeholder="Observaciones iniciales del expediente"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div id="formMessage" class="form-message"></div>
+
+                    <div class="form-actions">
+                        <a href="dashboard.html" class="btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn-primary-btn">Guardar expediente</button>
+                    </div>
+
+                </form>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/expediente-form.js"></script>
+
+</body>
+</html>

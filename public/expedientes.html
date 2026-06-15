@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Expedientes | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html">Panel</a>
+                <a href="expedientes.html" class="active">Expedientes</a>
+                <a href="expediente-nuevo.html">Nuevo expediente</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Expedientes</h1>
+                    <p>Consulta general de escrituras registradas</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section class="table-panel">
+
+                <div class="table-toolbar">
+
+                    <div class="search-box">
+                        <label for="buscarExpediente">Buscar expediente</label>
+                        <input 
+                            type="text" 
+                            id="buscarExpediente" 
+                            placeholder="Expediente, escritura, cliente, notaría..."
+                        >
+                    </div>
+
+                    <div class="search-box">
+                        <label for="estadoFiltro">Estado</label>
+                        <select id="estadoFiltro">
+                            <option value="">Todos</option>
+                            <option value="RECIBIDO">Recibido</option>
+                            <option value="EN_REVISION">En revisión</option>
+                            <option value="EN_TRASLADO">En traslado</option>
+                            <option value="PRESENTADO_INSCRIPCION">Presentado inscripción</option>
+                            <option value="OBSERVADO">Observado</option>
+                            <option value="EN_CORRECCION">En corrección</option>
+                            <option value="REINGRESADO">Reingresado</option>
+                            <option value="INSCRITO">Inscrito</option>
+                            <option value="ENTREGADO">Entregado</option>
+                            <option value="CERRADO">Cerrado</option>
+                            <option value="DETENIDO">Detenido</option>
+                            <option value="CANCELADO">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="toolbar-actions">
+                        <button id="btnBuscar" class="btn-primary-btn">Buscar</button>
+                        <button id="btnLimpiar" class="btn-secondary-btn">Limpiar</button>
+                        <a href="expediente-nuevo.html" class="btn-primary">Nuevo</a>
+                    </div>
+
+                </div>
+
+                <div id="tableMessage" class="table-message">
+                    Cargando expedientes...
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Expediente</th>
+                                <th>Escritura</th>
+                                <th>Cliente</th>
+                                <th>Acto jurídico</th>
+                                <th>Estado</th>
+                                <th>Responsable</th>
+                                <th>Recepción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="expedientesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/expedientes.js"></script>
+
+</body>
+</html>
