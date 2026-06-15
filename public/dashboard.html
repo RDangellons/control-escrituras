@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="active">Panel</a>
+                <a href="expedientes.html">Expedientes</a>
+                <a href="expediente-nuevo.html">Nuevo expediente</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Panel principal</h1>
+                    <p>Resumen general de escrituras y expedientes</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section class="cards-grid">
+
+                <article class="stat-card">
+                    <span>Total de expedientes</span>
+                    <strong id="totalExpedientes">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Expedientes activos</span>
+                    <strong id="activos">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>En traslado</span>
+                    <strong id="enTraslado">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>En inscripción</span>
+                    <strong id="enInscripcion">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Observados</span>
+                    <strong id="observados">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Inscritos</span>
+                    <strong id="inscritos">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Cerrados</span>
+                    <strong id="cerrados">1</strong>
+                </article>
+
+            </section>
+
+            <section class="dashboard-panel">
+                <div>
+                    <h2>Control documental</h2>
+                    <p>
+                        Desde este panel podrás consultar el estado de cada escritura:
+                        recibida, en traslado, presentada para inscripción, observada,
+                        inscrita o cerrada.
+                    </p>
+                </div>
+
+                <a href="expediente-nuevo.html" class="btn-primary">
+                    Registrar nuevo expediente
+                </a>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/dashboard.js"></script>
+
+</body>
+</html>
