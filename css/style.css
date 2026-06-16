@@ -1006,3 +1006,80 @@ body {
     max-height: 90vh;
     overflow-y: auto;
 }
+
+/* subir documentos*/
+
+
+.documents-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.document-card {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.document-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    background: #0f172a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+}
+
+.document-info strong {
+    display: block;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.document-info span {
+    display: block;
+    color: #334155;
+    font-size: 14px;
+    margin-bottom: 6px;
+    word-break: break-word;
+}
+
+.document-info small {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.form-group small {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+@media (max-width: 700px) {
+    .document-card {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+    }
+
+    .document-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .document-card .btn-table {
+        width: 100%;
+        text-align: center;
+    }
+}

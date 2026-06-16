@@ -29,6 +29,12 @@ const editarForm = document.getElementById("editarForm");
 if (editarForm) {
     editarForm.addEventListener("submit", guardarEdicionExpediente);
 }
+/*const documentoForm = document.getElementById("documentoForm");
+
+if (documentoForm) {
+     documentoForm.addEventListener("submit", window.subirDocumento);
+}
+     */
 });
 
 async function cargarDetalleExpediente(id) {
@@ -58,6 +64,7 @@ async function cargarDetalleExpediente(id) {
 
         pintarExpediente(expediente);
         pintarHistorial(seguimiento);
+        window.cargarDocumentos(id);
 
         message.textContent = "";
         contenido.style.display = "block";
@@ -489,6 +496,221 @@ function obtenerValorEdit(id) {
 
 function mostrarMensajeEditar(texto, tipo) {
     const message = document.getElementById("editarMessage");
+
+    message.textContent = texto;
+    message.className = "form-message";
+
+    if (tipo === "error") {
+        message.classList.add("message-error");
+    }
+
+    if (tipo === "success") {
+        message.classList.add("message-success");
+    }
+
+    if (tipo === "info") {
+        message.classList.add("message-info");
+    }
+}
+
+window.abrirModalDocumento = function () {
+    if (!expedienteId) {
+        alert("No se encontró el expediente.");
+        return;
+    }
+
+    document.getElementById("tipo_documento").value = "";
+    document.getElementById("archivo_documento").value = "";
+
+    const message = document.getElementById("documentoUploadMessage");
+    message.textContent = "";
+    message.className = "form-message";
+
+    document.getElementById("modalDocumento").style.display = "flex";
+};
+
+window.cerrarModalDocumento = function () {
+    document.getElementById("modalDocumento").style.display = "none";
+};
+
+
+window.cargarDocumentos = async function (id) {
+    const container = document.getElementById("documentosContainer");
+    const message = document.getElementById("documentosMessage");
+
+    if (!container || !message) {
+        return;
+    }
+
+    container.innerHTML = "";
+    message.textContent = "Cargando documentos...";
+    message.className = "table-message";
+
+    try {
+        const response = await fetch("../api/documentos/listar.php?expediente_id=" + encodeURIComponent(id), {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            message.textContent = result.message || "No se pudieron cargar los documentos.";
+            message.classList.add("message-error");
+            return;
+        }
+
+        const documentos = result.data || [];
+
+        if (documentos.length === 0) {
+            message.textContent = "No hay documentos subidos para este expediente.";
+            container.innerHTML = "";
+            return;
+        }
+
+        message.textContent = `Total de documentos: ${documentos.length}`;
+
+        container.innerHTML = documentos.map(doc => crearCardDocumento(doc)).join("");
+
+    } catch (error) {
+        console.error(error);
+        message.textContent = "Error de conexión con el servidor.";
+        message.classList.add("message-error");
+    }
+};
+
+function crearCardDocumento(doc) {
+    const ruta = "../" + doc.ruta_archivo;
+    const extension = (doc.extension || "").toUpperCase();
+
+    return `
+        <article class="document-card">
+            <div class="document-icon">
+                ${extension || "DOC"}
+            </div>
+
+            <div class="document-info">
+                <strong>${escaparHTML(doc.tipo_documento || "Documento")}</strong>
+                <span>${escaparHTML(doc.nombre_original || "Sin nombre")}</span>
+                <small>
+                    Subido por: ${escaparHTML(doc.subido_por_nombre || "Sistema")}
+                    <br>
+                    Fecha: ${formatearFechaHora(doc.created_at)}
+                    <br>
+                    Peso: ${formatearPeso(doc.peso)}
+                </small>
+            </div>
+
+            <a href="${ruta}" target="_blank" class="btn-table">
+                Abrir
+            </a>
+        </article>
+    `;
+}
+
+function formatearPeso(bytes) {
+    const peso = Number(bytes || 0);
+
+    if (peso <= 0) {
+        return "Sin dato";
+    }
+
+    if (peso < 1024) {
+        return peso + " B";
+    }
+
+    if (peso < 1024 * 1024) {
+        return (peso / 1024).toFixed(1) + " KB";
+    }
+
+    return (peso / (1024 * 1024)).toFixed(1) + " MB";
+}
+
+window.subirDocumento = async function (e) {
+    e.preventDefault();
+    console.log("Intentando subir documento...");
+
+    let idActual = expedienteId || obtenerParametroURL("id");
+
+    if (!idActual && expedienteActual && expedienteActual.id) {
+        idActual = expedienteActual.id;
+    }
+
+    if (!idActual) {
+        mostrarMensajeDocumento(
+            "No se encontró el expediente. Abra el expediente desde la lista con el botón Ver.",
+            "error"
+        );
+        return;
+    }
+
+    expedienteId = idActual;
+
+    const tipoDocumento = document.getElementById("tipo_documento").value.trim();
+    const archivoInput = document.getElementById("archivo_documento");
+
+    if (tipoDocumento === "") {
+        mostrarMensajeDocumento("Seleccione el tipo de documento.", "error");
+        return;
+    }
+
+    if (!archivoInput.files || archivoInput.files.length === 0) {
+        mostrarMensajeDocumento("Seleccione un archivo.", "error");
+        return;
+    }
+
+    const archivo = archivoInput.files[0];
+    const maximo = 10 * 1024 * 1024;
+
+    if (archivo.size > maximo) {
+        mostrarMensajeDocumento("El archivo no debe pesar más de 10 MB.", "error");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("expediente_id", idActual);
+    formData.append("tipo_documento", tipoDocumento);
+    formData.append("archivo", archivo);
+
+    try {
+        mostrarMensajeDocumento("Subiendo documento...", "info");
+
+        const response = await fetch("../api/documentos/subir.php", {
+            method: "POST",
+            credentials: "include",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            mostrarMensajeDocumento(
+                result.message || "No se pudo subir el documento.",
+                "error"
+            );
+            return;
+        }
+
+        mostrarMensajeDocumento("Documento subido correctamente.", "success");
+
+        setTimeout(() => {
+            cerrarModalDocumento();
+            cargarDetalleExpediente(idActual);
+        }, 800);
+
+    } catch (error) {
+        console.error(error);
+        mostrarMensajeDocumento("Error de conexión con el servidor.", "error");
+    }
+};
+
+function mostrarMensajeDocumento(texto, tipo) {
+    const message = document.getElementById("documentoUploadMessage");
+
+    if (!message) {
+        alert(texto);
+        return;
+    }
 
     message.textContent = texto;
     message.className = "form-message";

@@ -176,6 +176,28 @@
                 <section class="detail-card full-width-card">
                     <div class="section-title-row">
                         <div>
+                            <h3>Documentos del expediente</h3>
+                            <p>Archivos digitales relacionados con la escritura.</p>
+                        </div>
+
+                        <button type="button" class="btn-primary-btn" onclick="abrirModalDocumento()">
+                            Subir documento
+                        </button>
+                    </div>
+
+                    <div id="documentosMessage" class="table-message">
+                        Cargando documentos...
+                    </div>
+
+                    <div id="documentosContainer" class="documents-grid">
+                    </div>
+                </section>
+
+
+
+                <section class="detail-card full-width-card">
+                    <div class="section-title-row">
+                        <div>
                             <h3>Historial del expediente</h3>
                             <p>Bitácora de movimientos y cambios de estado.</p>
                         </div>
@@ -334,25 +356,82 @@
                 </div>
 
 
-                    <div class="form-actions">
-                        <a href="expedientes.html" class="btn-secondary">Regresar</a>
+                <div class="form-actions">
+                    <a href="expedientes.html" class="btn-secondary">Regresar</a>
 
 
-                        <button type="button" class="btn-primary-btn" onclick="abrirModalEditar()">
-                            Editar datos
-                        </button>
-                    </div>
-
+                    <button type="button" class="btn-primary-btn" onclick="abrirModalEditar()">
+                        Editar datos
+                    </button>
+                </div>
                 </form>
 
     </div>
 
+
+
+    <div id="modalDocumento" class="modal-overlay" style="display: none;">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+            <div>
+                <h2>Subir documento</h2>
+                <p>Adjunta PDF o imagen al expediente.</p>
+            </div>
+
+            <button type="button" class="modal-close" onclick="cerrarModalDocumento()">
+                ×
+            </button>
+        </div>
+
+        <form id="documentoForm" enctype="multipart/form-data" onsubmit="window.subirDocumento(event)">
+
+            <div class="form-group">
+                <label for="tipo_documento">Tipo de documento *</label>
+                <select id="tipo_documento" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="Escritura">Escritura</option>
+                    <option value="INE">INE</option>
+                    <option value="Acuse">Acuse</option>
+                    <option value="Boleta registral">Boleta registral</option>
+                    <option value="Observación del Registro">Observación del Registro</option>
+                    <option value="Comprobante de pago">Comprobante de pago</option>
+                    <option value="Oficio">Oficio</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="archivo_documento">Archivo *</label>
+                <input 
+                    type="file" 
+                    id="archivo_documento" 
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+                <small>Formatos permitidos: PDF, JPG, JPEG, PNG. Máximo 10 MB.</small>
+            </div>
+
+            <div id="documentoUploadMessage" class="form-message"></div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary-btn" onclick="cerrarModalDocumento()">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn-primary-btn">
+                    Subir archivo
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
+</div>
     </main>
 
-
-    </div>
 
     <script src="../js/auth.js"></script>
     <script src="../js/expediente-ver.js"></script>
