@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html">Panel</a>
+                <a href="expedientes.html">Expedientes</a>
+                <a href="expediente-nuevo.html">Nuevo expediente</a>
+                <a href="reportes.html" class="active">Reportes</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Reportes</h1>
+                    <p>Consulta y filtrado general de expedientes de escrituras</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section class="table-panel">
+
+                <div class="form-section-title">
+                    <h2>Filtros del reporte</h2>
+                    <p>Filtra por estado, responsable o fecha de recepción.</p>
+                </div>
+
+                <div class="report-filters">
+
+                    <div class="form-group">
+                        <label for="reporte_estado">Estado</label>
+                        <select id="reporte_estado">
+                            <option value="">Todos</option>
+                            <option value="RECIBIDO">Recibido</option>
+                            <option value="EN_REVISION">En revisión</option>
+                            <option value="EN_TRASLADO">En traslado</option>
+                            <option value="PRESENTADO_INSCRIPCION">Presentado para inscripción</option>
+                            <option value="OBSERVADO">Observado</option>
+                            <option value="EN_CORRECCION">En corrección</option>
+                            <option value="REINGRESADO">Reingresado</option>
+                            <option value="INSCRITO">Inscrito</option>
+                            <option value="ENTREGADO">Entregado</option>
+                            <option value="CERRADO">Cerrado</option>
+                            <option value="DETENIDO">Detenido</option>
+                            <option value="CANCELADO">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporte_responsable">Responsable</label>
+                        <input type="text" id="reporte_responsable" placeholder="Ej. Gestor, Jurídico, Registro Público">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_inicio">Fecha inicio</label>
+                        <input type="date" id="fecha_inicio">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha fin</label>
+                        <input type="date" id="fecha_fin">
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary-btn" id="btnLimpiarReporte">
+                        Limpiar
+                    </button>
+
+                    <button type="button" class="btn-primary-btn" id="btnGenerarReporte">
+                        Generar reporte
+                    </button>
+                </div>
+
+            </section>
+
+            <section class="cards-grid report-cards">
+
+                <article class="stat-card">
+                    <span>Total</span>
+                    <strong id="repTotal">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>En traslado</span>
+                    <strong id="repTraslado">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>En inscripción</span>
+                    <strong id="repInscripcion">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Observados</span>
+                    <strong id="repObservados">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Inscritos</span>
+                    <strong id="repInscritos">0</strong>
+                </article>
+
+                <article class="stat-card">
+                    <span>Cerrados</span>
+                    <strong id="repCerrados">0</strong>
+                </article>
+
+            </section>
+
+            <section class="table-panel">
+
+                <div class="section-title-row">
+                    <div>
+                        <h3>Resultado del reporte</h3>
+                        <p id="reporteMessage">Generando reporte...</p>
+                    </div>
+
+                    <button type="button" class="btn-secondary-btn" onclick="window.print()">
+                        Imprimir
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Expediente</th>
+                                <th>Escritura</th>
+                                <th>Cliente</th>
+                                <th>Acto jurídico</th>
+                                <th>Estado</th>
+                                <th>Responsable</th>
+                                <th>Recepción</th>
+                                <th>Cierre</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="reporteTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/reportes.js"></script>
+
+</body>
+</html>
