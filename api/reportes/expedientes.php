@@ -67,53 +67,53 @@ try {
     $expedientes = $stmt->fetchAll();
 
     $resumen = [
-        "total" => count($expedientes),
-        "recibidos" => 0,
-        "en_revision" => 0,
-        "en_traslado" => 0,
-        "en_inscripcion" => 0,
-        "observados" => 0,
-        "inscritos" => 0,
-        "entregados" => 0,
-        "cerrados" => 0,
-        "detenidos" => 0,
-        "cancelados" => 0
-    ];
+    "total" => count($expedientes),
+    "sale_folio_notaria" => 0,
+    "folio_firma" => 0,
+    "ingresa_folio_notaria" => 0,
+    "traslado_entregado" => 0,
+    "traslado_recibido" => 0,
+    "cierre_notaria" => 0,
+    "cierre_gestor" => 0,
+    "entrega_escritura" => 0,
+    "entrega_expediente" => 0,
+    "Cancelado"=> 0
+];
 
-    foreach ($expedientes as $exp) {
-        switch ($exp["estado_actual"]) {
-            case "RECIBIDO":
-                $resumen["recibidos"]++;
-                break;
-            case "EN_REVISION":
-                $resumen["en_revision"]++;
-                break;
-            case "EN_TRASLADO":
-                $resumen["en_traslado"]++;
-                break;
-            case "PRESENTADO_INSCRIPCION":
-                $resumen["en_inscripcion"]++;
-                break;
-            case "OBSERVADO":
-                $resumen["observados"]++;
-                break;
-            case "INSCRITO":
-                $resumen["inscritos"]++;
-                break;
-            case "ENTREGADO":
-                $resumen["entregados"]++;
-                break;
-            case "CERRADO":
-                $resumen["cerrados"]++;
-                break;
-            case "DETENIDO":
-                $resumen["detenidos"]++;
-                break;
-            case "CANCELADO":
-                $resumen["cancelados"]++;
-                break;
-        }
+foreach ($expedientes as $exp) {
+    switch ($exp["estado_actual"]) {
+        case "SALE_FOLIO_NOTARIA":
+            $resumen["sale_folio_notaria"]++;
+            break;
+        case "FOLIO_FIRMA":
+            $resumen["folio_firma"]++;
+            break;
+        case "INGRESA_FOLIO_NOTARIA":
+            $resumen["ingresa_folio_notaria"]++;
+            break;
+        case "TRASLADO_ENTREGADO":
+            $resumen["traslado_entregado"]++;
+            break;
+        case "TRASLADO_RECIBIDO":
+            $resumen["traslado_recibido"]++;
+            break;
+        case "CIERRE_NOTARIA":
+            $resumen["cierre_notaria"]++;
+            break;
+        case "CIERRE_GESTOR":
+            $resumen["cierre_gestor"]++;
+            break;
+        case "ENTREGA_ESCRITURA":
+            $resumen["entrega_escritura"]++;
+            break;
+        case "ENTREGA_EXPEDIENTE":
+            $resumen["entrega_expediente"]++;
+            break;
+        case "Cancelado":
+            $resumen["Cancelado"]++;
+            break;
     }
+}
 
     json_response(true, "Reporte obtenido correctamente", [
         "resumen" => $resumen,

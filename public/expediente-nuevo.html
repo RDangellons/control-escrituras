@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Expediente | Control de Escrituras</title>
@@ -7,6 +8,7 @@
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
 
     <div class="app-layout">
@@ -160,28 +162,30 @@
                         <div class="form-group">
                             <label for="estado_actual">Estado actual</label>
                             <select id="estado_actual">
-                                <option value="RECIBIDO">Recibido</option>
-                                <option value="EN_REVISION">En revisión</option>
-                                <option value="EN_TRASLADO">En traslado</option>
-                                <option value="PRESENTADO_INSCRIPCION">Presentado para inscripción</option>
-                                <option value="OBSERVADO">Observado</option>
-                                <option value="EN_CORRECCION">En corrección</option>
-                                <option value="REINGRESADO">Reingresado</option>
-                                <option value="INSCRITO">Inscrito</option>
-                                <option value="ENTREGADO">Entregado</option>
-                                <option value="DETENIDO">Detenido</option>
-                                <option value="CANCELADO">Cancelado</option>
+                                <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
+                                <option value="FOLIO_FIRMA">Folio firma</option>
+                                <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
+                                <option value="TRASLADO_ENTREGADO">Traslado entregado</option>
+                                <option value="TRASLADO_RECIBIDO">Traslado recibido</option>
+                                <option value="CIERRE_NOTARIA">Cierre en notaría</option>
+                                <option value="CIERRE_GESTOR">Cierre con gestor</option>
+                                <option value="ENTREGA_ESCRITURA">Entrega de escritura</option>
+                                <option value="ENTREGA_EXPEDIENTE">Entrega de expediente</option>
+                                <option value="Cancelado">Cancelado</option>
+
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="responsable_actual">Responsable actual</label>
-                            <input type="text" id="responsable_actual" placeholder="Ej. Jurídico, gestor, Registro Público">
+                            <input type="text" id="responsable_actual"
+                                placeholder="Ej. Jurídico, gestor, Registro Público">
                         </div>
 
                         <div class="form-group span-2">
                             <label for="observaciones">Observaciones</label>
-                            <textarea id="observaciones" rows="3" placeholder="Observaciones iniciales del expediente"></textarea>
+                            <textarea id="observaciones" rows="3"
+                                placeholder="Observaciones iniciales del expediente"></textarea>
                         </div>
 
                     </div>
@@ -205,4 +209,5 @@
     <script src="../js/expediente-form.js"></script>
 
 </body>
+
 </html>

@@ -59,18 +59,16 @@ if ($comentario_correccion === "") {
 }
 
 $estados_validos = [
-    "RECIBIDO",
-    "EN_REVISION",
-    "EN_TRASLADO",
-    "PRESENTADO_INSCRIPCION",
-    "OBSERVADO",
-    "EN_CORRECCION",
-    "REINGRESADO",
-    "INSCRITO",
-    "ENTREGADO",
-    "CERRADO",
-    "DETENIDO",
-    "CANCELADO"
+    "SALE_FOLIO_NOTARIA",
+    "FOLIO_FIRMA",
+    "INGRESA_FOLIO_NOTARIA",
+    "TRASLADO_ENTREGADO",
+    "TRASLADO_RECIBIDO",
+    "CIERRE_NOTARIA",
+    "CIERRE_GESTOR",
+    "ENTREGA_ESCRITURA",
+    "ENTREGA_EXPEDIENTE",
+    "Cancelado"
 ];
 
 if (!in_array($estado_actual, $estados_validos)) {

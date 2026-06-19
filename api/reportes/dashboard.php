@@ -9,37 +9,63 @@ require_login();
 try {
     $sql = "
         SELECT
-            COUNT(*) AS total,
+        COUNT(*) AS total,
 
-            SUM(CASE 
-                WHEN estado_actual NOT IN ('CERRADO', 'CANCELADO') 
-                THEN 1 ELSE 0 
-            END) AS activos,
+        SUM(CASE 
+            WHEN estado_actual NOT IN ('ENTREGA_EXPEDIENTE') 
+            THEN 1 ELSE 0 
+        END) AS activos,
 
-            SUM(CASE 
-                WHEN estado_actual = 'EN_TRASLADO' 
-                THEN 1 ELSE 0 
-            END) AS en_traslado,
+        SUM(CASE 
+            WHEN estado_actual = 'SALE_FOLIO_NOTARIA' 
+            THEN 1 ELSE 0 
+        END) AS sale_folio_notaria,
 
-            SUM(CASE 
-                WHEN estado_actual = 'PRESENTADO_INSCRIPCION' 
-                THEN 1 ELSE 0 
-            END) AS en_inscripcion,
+        SUM(CASE 
+            WHEN estado_actual = 'FOLIO_FIRMA' 
+            THEN 1 ELSE 0 
+        END) AS folio_firma,
 
-            SUM(CASE 
-                WHEN estado_actual = 'OBSERVADO' 
-                THEN 1 ELSE 0 
-            END) AS observados,
+        SUM(CASE 
+            WHEN estado_actual = 'INGRESA_FOLIO_NOTARIA' 
+            THEN 1 ELSE 0 
+        END) AS ingresa_folio_notaria,
 
-            SUM(CASE 
-                WHEN estado_actual = 'INSCRITO' 
-                THEN 1 ELSE 0 
-            END) AS inscritos,
+        SUM(CASE 
+            WHEN estado_actual = 'TRASLADO_ENTREGADO' 
+            THEN 1 ELSE 0 
+        END) AS traslado_entregado,
 
-            SUM(CASE 
-                WHEN estado_actual = 'CERRADO' 
-                THEN 1 ELSE 0 
-            END) AS cerrados
+        SUM(CASE 
+            WHEN estado_actual = 'TRASLADO_RECIBIDO' 
+            THEN 1 ELSE 0 
+        END) AS traslado_recibido,
+
+        SUM(CASE 
+            WHEN estado_actual = 'CIERRE_NOTARIA' 
+            THEN 1 ELSE 0 
+        END) AS cierre_notaria,
+
+        SUM(CASE 
+            WHEN estado_actual = 'CIERRE_GESTOR' 
+            THEN 1 ELSE 0 
+        END) AS cierre_gestor,
+
+        SUM(CASE 
+            WHEN estado_actual = 'ENTREGA_ESCRITURA' 
+            THEN 1 ELSE 0 
+        END) AS entrega_escritura,
+
+        SUM(CASE 
+            WHEN estado_actual = 'ENTREGA_EXPEDIENTE' 
+            THEN 1 ELSE 0 
+        END) AS entrega_expediente
+
+        SUM(CASE
+            WHEN estado_actual= 'CANCELADO'
+            THEN 1 ELSE 0 
+            END) AS Cancelado
+
 
         FROM expedientes
     ";

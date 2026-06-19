@@ -303,18 +303,17 @@
                                 <div class="form-group">
                                     <label for="edit_estado_actual">Estado actual *</label>
                                     <select id="edit_estado_actual" required>
-                                        <option value="RECIBIDO">Recibido</option>
-                                        <option value="EN_REVISION">En revisión</option>
-                                        <option value="EN_TRASLADO">En traslado</option>
-                                        <option value="PRESENTADO_INSCRIPCION">Presentado para inscripción</option>
-                                        <option value="OBSERVADO">Observado</option>
-                                        <option value="EN_CORRECCION">En corrección</option>
-                                        <option value="REINGRESADO">Reingresado</option>
-                                        <option value="INSCRITO">Inscrito</option>
-                                        <option value="ENTREGADO">Entregado</option>
-                                        <option value="CERRADO">Cerrado</option>
-                                        <option value="DETENIDO">Detenido</option>
-                                        <option value="CANCELADO">Cancelado</option>
+                                        <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
+                                        <option value="FOLIO_FIRMA">Folio firma</option>
+                                        <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
+                                        <option value="TRASLADO_ENTREGADO">Traslado entregado</option>
+                                        <option value="TRASLADO_RECIBIDO">Traslado recibido</option>
+                                        <option value="CIERRE_NOTARIA">Cierre en notaría</option>
+                                        <option value="CIERRE_GESTOR">Cierre con gestor</option>
+                                        <option value="ENTREGA_ESCRITURA">Entrega de escritura</option>
+                                        <option value="ENTREGA_EXPEDIENTE">Entrega de expediente</option>
+                                        <option value="Cancelado">Cancelado</option>
+
                                     </select>
                                 </div>
 
@@ -372,64 +371,59 @@
 
     <div id="modalDocumento" class="modal-overlay" style="display: none;">
 
-    <div class="modal-card">
+        <div class="modal-card">
 
-        <div class="modal-header">
-            <div>
-                <h2>Subir documento</h2>
-                <p>Adjunta PDF o imagen al expediente.</p>
+            <div class="modal-header">
+                <div>
+                    <h2>Subir documento</h2>
+                    <p>Adjunta PDF o imagen al expediente.</p>
+                </div>
+
+                <button type="button" class="modal-close" onclick="cerrarModalDocumento()">
+                    ×
+                </button>
             </div>
 
-            <button type="button" class="modal-close" onclick="cerrarModalDocumento()">
-                ×
-            </button>
+            <form id="documentoForm" enctype="multipart/form-data" onsubmit="window.subirDocumento(event)">
+
+                <div class="form-group">
+                    <label for="tipo_documento">Tipo de documento *</label>
+                    <select id="tipo_documento" required>
+                        <option value="">Seleccione una opción</option>
+                        <option value="Escritura">Escritura</option>
+                        <option value="INE">INE</option>
+                        <option value="Acuse">Acuse</option>
+                        <option value="Boleta registral">Boleta registral</option>
+                        <option value="Observación del Registro">Observación del Registro</option>
+                        <option value="Comprobante de pago">Comprobante de pago</option>
+                        <option value="Oficio">Oficio</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="archivo_documento">Archivo *</label>
+                    <input type="file" id="archivo_documento" accept=".pdf,.jpg,.jpeg,.png" required>
+                    <small>Formatos permitidos: PDF, JPG, JPEG, PNG. Máximo 10 MB.</small>
+                </div>
+
+                <div id="documentoUploadMessage" class="form-message"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary-btn" onclick="cerrarModalDocumento()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn-primary-btn">
+                        Subir archivo
+                    </button>
+                </div>
+
+            </form>
+
         </div>
 
-        <form id="documentoForm" enctype="multipart/form-data" onsubmit="window.subirDocumento(event)">
-
-            <div class="form-group">
-                <label for="tipo_documento">Tipo de documento *</label>
-                <select id="tipo_documento" required>
-                    <option value="">Seleccione una opción</option>
-                    <option value="Escritura">Escritura</option>
-                    <option value="INE">INE</option>
-                    <option value="Acuse">Acuse</option>
-                    <option value="Boleta registral">Boleta registral</option>
-                    <option value="Observación del Registro">Observación del Registro</option>
-                    <option value="Comprobante de pago">Comprobante de pago</option>
-                    <option value="Oficio">Oficio</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="archivo_documento">Archivo *</label>
-                <input 
-                    type="file" 
-                    id="archivo_documento" 
-                    accept=".pdf,.jpg,.jpeg,.png"
-                    required
-                >
-                <small>Formatos permitidos: PDF, JPG, JPEG, PNG. Máximo 10 MB.</small>
-            </div>
-
-            <div id="documentoUploadMessage" class="form-message"></div>
-
-            <div class="form-actions">
-                <button type="button" class="btn-secondary-btn" onclick="cerrarModalDocumento()">
-                    Cancelar
-                </button>
-
-                <button type="submit" class="btn-primary-btn">
-                    Subir archivo
-                </button>
-            </div>
-
-        </form>
-
     </div>
-
-</div>
     </main>
 
 

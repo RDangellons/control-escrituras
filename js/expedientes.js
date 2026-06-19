@@ -126,18 +126,16 @@ function crearFilaExpediente(exp) {
 
 function formatoEstado(estado) {
     const estados = {
-        RECIBIDO: "Recibido",
-        EN_REVISION: "En revisión",
-        EN_TRASLADO: "En traslado",
-        PRESENTADO_INSCRIPCION: "En inscripción",
-        OBSERVADO: "Observado",
-        EN_CORRECCION: "En corrección",
-        REINGRESADO: "Reingresado",
-        INSCRITO: "Inscrito",
-        ENTREGADO: "Entregado",
-        CERRADO: "Cerrado",
-        DETENIDO: "Detenido",
-        CANCELADO: "Cancelado"
+        SALE_FOLIO_NOTARIA: "Sale folio notaría",
+        FOLIO_FIRMA: "Folio firma",
+        INGRESA_FOLIO_NOTARIA: "Ingresa folio para notaría",
+        TRASLADO_ENTREGADO: "Traslado entregado",
+        TRASLADO_RECIBIDO: "Traslado recibido",
+        CIERRE_NOTARIA: "Cierre en notaría",
+        CIERRE_GESTOR: "Cierre con gestor",
+        ENTREGA_ESCRITURA: "Entrega de escritura",
+        ENTREGA_EXPEDIENTE: "Entrega de expediente",
+        Cancelado:"Cancelado"
     };
 
     return estados[estado] || estado;
@@ -145,18 +143,16 @@ function formatoEstado(estado) {
 
 function claseEstado(estado) {
     const clases = {
-        RECIBIDO: "status-blue",
-        EN_REVISION: "status-purple",
-        EN_TRASLADO: "status-orange",
-        PRESENTADO_INSCRIPCION: "status-indigo",
-        OBSERVADO: "status-red",
-        EN_CORRECCION: "status-yellow",
-        REINGRESADO: "status-yellow",
-        INSCRITO: "status-green",
-        ENTREGADO: "status-green",
-        CERRADO: "status-dark",
-        DETENIDO: "status-gray",
-        CANCELADO: "status-red"
+       SALE_FOLIO_NOTARIA: "status-blue",
+        FOLIO_FIRMA: "status-purple",
+        INGRESA_FOLIO_NOTARIA: "status-indigo",
+        TRASLADO_ENTREGADO: "status-orange",
+        TRASLADO_RECIBIDO: "status-yellow",
+        CIERRE_NOTARIA: "status-green",
+        CIERRE_GESTOR: "status-green",
+        ENTREGA_ESCRITURA: "status-dark",
+        ENTREGA_EXPEDIENTE: "status-dark",
+        Cancelado:"status-dark"
     };
 
     return clases[estado] || "status-gray";

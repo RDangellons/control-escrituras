@@ -29,11 +29,13 @@ async function cargarDashboard() {
 
         document.getElementById("totalExpedientes").textContent = data.total;
         document.getElementById("activos").textContent = data.activos;
-        document.getElementById("enTraslado").textContent = data.en_traslado;
-        document.getElementById("enInscripcion").textContent = data.en_inscripcion;
-        document.getElementById("observados").textContent = data.observados;
-        document.getElementById("inscritos").textContent = data.inscritos;
-        document.getElementById("cerrados").textContent = data.cerrados;
+        document.getElementById("saleFolioNotaria").textContent = data.sale_folio_notaria;
+        document.getElementById("folioFirma").textContent = data.folio_firma;
+        document.getElementById("ingresaFolioNotaria").textContent = data.ingresa_folio_notaria;
+        document.getElementById("trasladoEntregado").textContent = data.traslado_entregado;
+        document.getElementById("trasladoRecibido").textContent = data.traslado_recibido;
+        document.getElementById("entregaExpediente").textContent = data.entrega_expediente;
+        document.getElementById("Cancelado").textContent = data.Cancelado;
 
     } catch (error) {
         console.error("Error cargando dashboard:", error);
