@@ -189,7 +189,7 @@ function formatoEstado(estado) {
         CIERRE_GESTOR: "Cierre con gestor",
         ENTREGA_ESCRITURA: "Entrega de escritura",
         ENTREGA_EXPEDIENTE: "Entrega de expediente",
-        Cancelado:"Cancelado"
+         CANCELACION: "Cancelación"
     };
 
     return estados[estado] || estado || "---";
@@ -206,7 +206,7 @@ function claseEstado(estado) {
         CIERRE_GESTOR: "status-green",
         ENTREGA_ESCRITURA: "status-dark",
         ENTREGA_EXPEDIENTE: "status-dark",
-        Cancelado:"status-dark"
+        CANCELACION: "status-red"
     };
 
     return clases[estado] || "status-gray";

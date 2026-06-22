@@ -77,7 +77,7 @@ try {
     "cierre_gestor" => 0,
     "entrega_escritura" => 0,
     "entrega_expediente" => 0,
-    "Cancelado"=> 0
+    "cancelacion" => 0
 ];
 
 foreach ($expedientes as $exp) {
@@ -109,8 +109,8 @@ foreach ($expedientes as $exp) {
         case "ENTREGA_EXPEDIENTE":
             $resumen["entrega_expediente"]++;
             break;
-        case "Cancelado":
-            $resumen["Cancelado"]++;
+        case "CANCELACION":
+            $resumen["cancelacion"]++;
             break;
     }
 }

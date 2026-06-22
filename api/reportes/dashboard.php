@@ -12,7 +12,7 @@ try {
         COUNT(*) AS total,
 
         SUM(CASE 
-            WHEN estado_actual NOT IN ('ENTREGA_EXPEDIENTE') 
+            WHEN estado_actual NOT IN ('ENTREGA_EXPEDIENTE', 'CANCELACION') 
             THEN 1 ELSE 0 
         END) AS activos,
 
@@ -59,12 +59,12 @@ try {
         SUM(CASE 
             WHEN estado_actual = 'ENTREGA_EXPEDIENTE' 
             THEN 1 ELSE 0 
-        END) AS entrega_expediente
+        END) AS entrega_expediente,
 
-        SUM(CASE
-            WHEN estado_actual= 'CANCELADO'
+        SUM(CASE 
+             WHEN estado_actual = 'CANCELACION' 
             THEN 1 ELSE 0 
-            END) AS Cancelado
+        END) AS cancelacion
 
 
         FROM expedientes

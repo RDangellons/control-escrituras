@@ -58,7 +58,7 @@ $estados_validos = [
     "CIERRE_GESTOR",
     "ENTREGA_ESCRITURA",
     "ENTREGA_EXPEDIENTE",
-    "Cancelado"
+    "CANCELACION"
 ];
 
 if (!in_array($estado_actual, $estados_validos)) {

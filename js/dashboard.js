@@ -35,7 +35,7 @@ async function cargarDashboard() {
         document.getElementById("trasladoEntregado").textContent = data.traslado_entregado;
         document.getElementById("trasladoRecibido").textContent = data.traslado_recibido;
         document.getElementById("entregaExpediente").textContent = data.entrega_expediente;
-        document.getElementById("Cancelado").textContent = data.Cancelado;
+        document.getElementById("cancelacion").textContent = data.cancelacion;
 
     } catch (error) {
         console.error("Error cargando dashboard:", error);
