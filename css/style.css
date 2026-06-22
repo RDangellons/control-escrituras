@@ -1109,3 +1109,21 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+/*Boton peligro*/
+
+.btn-danger-small {
+    border: none;
+    background: #b91c1c;
+    color: #ffffff;
+    padding: 8px 11px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-danger-small:hover {
+    background: #991b1b;
+}

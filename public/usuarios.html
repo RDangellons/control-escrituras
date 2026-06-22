@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios | Control de Escrituras</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-logo">CE</div>
+                <div>
+                    <h2>Control</h2>
+                    <span>Escrituras</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html">Panel</a>
+                <a href="expedientes.html">Expedientes</a>
+                <a href="expediente-nuevo.html">Nuevo expediente</a>
+                <a href="reportes.html">Reportes</a>
+                <a href="usuarios.html" class="active">Usuarios</a>
+                <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <h1>Usuarios</h1>
+                    <p>Administración de accesos y roles del sistema</p>
+                </div>
+
+                <div class="user-box">
+                    <span id="userName">Usuario</span>
+                    <small id="userRole">Rol</small>
+                </div>
+            </header>
+
+            <section class="form-panel">
+
+                <div class="form-section-title">
+                    <h2>Nuevo usuario</h2>
+                    <p>Registra personal autorizado para usar el sistema.</p>
+                </div>
+
+                <form id="usuarioForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo *</label>
+                            <input type="text" id="nombre" required placeholder="Ej. María López">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="usuario">Usuario *</label>
+                            <input type="text" id="usuario" required placeholder="Ej. mlopez">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Contraseña *</label>
+                            <input type="password" id="password" required placeholder="Mínimo 6 caracteres">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rol">Rol *</label>
+                            <select id="rol" required>
+                                <option value="CONSULTA">Consulta</option>
+                                <option value="CAPTURISTA">Capturista</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div id="usuarioMessage" class="form-message"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary-btn">
+                            Crear usuario
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <section class="table-panel" style="margin-top: 24px;">
+
+                <div class="section-title-row">
+                    <div>
+                        <h3>Usuarios registrados</h3>
+                        <p id="usuariosMessage">Cargando usuarios...</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Usuario</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Creado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="usuariosTableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/usuarios.js"></script>
+
+</body>
+</html>
