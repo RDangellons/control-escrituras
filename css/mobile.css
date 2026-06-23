@@ -1,0 +1,143 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #334155 100%);
+    color: #111827;
+    min-height: 100vh;
+}
+
+
+.mobile-menu-btn {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .app-layout {
+        display: block;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 1001;
+        width: 46px;
+        height: 46px;
+        border: none;
+        border-radius: 14px;
+        background: #111827;
+        color: #ffffff;
+        font-size: 24px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -290px;
+        width: 270px;
+        height: 100vh;
+        z-index: 1002;
+        transition: left 0.25s ease;
+        overflow-y: auto;
+    }
+
+    .sidebar.sidebar-open {
+        left: 0;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        z-index: 1000;
+    }
+
+    .sidebar-overlay.overlay-active {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 76px 16px 20px;
+        width: 100%;
+    }
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .topbar h1 {
+        font-size: 24px;
+    }
+
+    .topbar p {
+        font-size: 14px;
+    }
+
+    .user-box {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .dashboard-panel {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .dashboard-panel .btn-primary,
+    .btn-primary,
+    .btn-primary-btn,
+    .btn-secondary-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .form-panel,
+    .table-panel,
+    .detail-panel,
+    .dashboard-panel {
+        border-radius: 16px;
+        padding: 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        min-width: 760px;
+    }
+}

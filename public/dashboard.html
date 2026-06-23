@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../css/style.css">
+    
 </head>
 
 <body>
 
     <div class="app-layout">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+            ☰
+        </button>
 
-        <aside class="sidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-logo">CE</div>
                 <div>
@@ -88,8 +94,8 @@
                 </article>
 
                 <article class="stat-card">
-                     <span>Cancelación</span>
-                     <strong id="cancelacion">0</strong>
+                    <span>Cancelación</span>
+                    <strong id="cancelacion">0</strong>
                 </article>
             </section>
 
@@ -98,8 +104,10 @@
 
     </div>
 
+    
     <script src="../js/auth.js"></script>
     <script src="../js/dashboard.js"></script>
+     <script src="../js/mobile_menu.js"></script>
 
 </body>
 
