@@ -12,8 +12,13 @@
 <body>
 
     <div class="app-layout">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+            ☰
+        </button>
+        
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-logo">CE</div>
                 <div>
@@ -58,7 +63,7 @@
                     <div class="search-box">
                         <label for="estadoFiltro">Estado</label>
                         <select id="estadoFiltro">
-                            
+
                             <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
                             <option value="FOLIO_FIRMA">Folio firma</option>
                             <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
@@ -68,7 +73,7 @@
                             <option value="CIERRE_GESTOR">Cierre con gestor</option>
                             <option value="ENTREGA_ESCRITURA">Entrega de escritura</option>
                             <option value="ENTREGA_EXPEDIENTE">Entrega de expediente</option>
-                           <option value="CANCELACION">Cancelación</option>
+                            <option value="CANCELACION">Cancelación</option>
                         </select>
                     </div>
 
@@ -112,6 +117,7 @@
 
     <script src="../js/auth.js"></script>
     <script src="../js/expedientes.js"></script>
+    <script src="../js/mobile_menu.js"></script>
 
 </body>
 
