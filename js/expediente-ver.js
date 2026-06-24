@@ -76,6 +76,11 @@ async function cargarDetalleExpediente(id) {
 }
 
 function pintarExpediente(exp) {
+    const tituloExpediente = document.getElementById("tituloExpediente");
+
+if (tituloExpediente) {
+    tituloExpediente.textContent = expediente.numero_expediente || "Expediente";
+}
     const estadoTexto = formatoEstado(exp.estado_actual);
     const estadoClase = claseEstado(exp.estado_actual);
 

@@ -5,62 +5,82 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    document.getElementById("userName").textContent = usuario.nombre;
-    document.getElementById("userRole").textContent = usuario.rol;
+    const userName = document.getElementById("userName");
+    const userRole = document.getElementById("userRole");
+
+    if (userName) {
+        userName.textContent = usuario.nombre;
+    }
+
+    if (userRole) {
+        userRole.textContent = usuario.rol;
+    }
 
     configurarEventos();
     cargarExpedientes();
 });
 
 function configurarEventos() {
-    const btnBuscar = document.getElementById("btnBuscar");
-    const btnLimpiar = document.getElementById("btnLimpiar");
     const buscarInput = document.getElementById("buscarExpediente");
-    const estadoFiltro = document.getElementById("estadoFiltro");
+    const filtroEstado = document.getElementById("filtroEstado");
+    const btnLimpiarFiltros = document.getElementById("btnLimpiarFiltros");
 
-    btnBuscar.addEventListener("click", () => {
-        cargarExpedientes();
-    });
-
-    btnLimpiar.addEventListener("click", () => {
-        buscarInput.value = "";
-        estadoFiltro.value = "";
-        cargarExpedientes();
-    });
-
-    buscarInput.addEventListener("keyup", (e) => {
-        if (e.key === "Enter") {
+    if (buscarInput) {
+        buscarInput.addEventListener("input", () => {
             cargarExpedientes();
-        }
-    });
+        });
+    }
 
-    estadoFiltro.addEventListener("change", () => {
-        cargarExpedientes();
-    });
+    if (filtroEstado) {
+        filtroEstado.addEventListener("change", () => {
+            cargarExpedientes();
+        });
+    }
+
+    if (btnLimpiarFiltros) {
+        btnLimpiarFiltros.addEventListener("click", () => {
+            if (buscarInput) {
+                buscarInput.value = "";
+            }
+
+            if (filtroEstado) {
+                filtroEstado.value = "";
+            }
+
+            cargarExpedientes();
+        });
+    }
 }
 
 async function cargarExpedientes() {
     const tbody = document.getElementById("expedientesTableBody");
-    const message = document.getElementById("tableMessage");
+    const message = document.getElementById("expedientesMessage");
 
-    const buscar = document.getElementById("buscarExpediente").value.trim();
-    const estado = document.getElementById("estadoFiltro").value.trim();
+    if (!tbody) {
+        console.error("No existe el tbody con id expedientesTableBody");
+        return;
+    }
 
     tbody.innerHTML = "";
-    message.textContent = "Cargando expedientes...";
-    message.className = "table-message";
+
+    if (message) {
+        message.textContent = "Cargando expedientes...";
+    }
+
+    const buscar = document.getElementById("buscarExpediente")?.value.trim() || "";
+    const estado = document.getElementById("filtroEstado")?.value.trim() || "";
+
+    const params = new URLSearchParams();
+
+    if (buscar !== "") {
+        params.append("buscar", buscar);
+    }
+
+    if (estado !== "") {
+        params.append("estado", estado);
+    }
 
     try {
-        const params = new URLSearchParams();
-
-        if (buscar !== "") {
-            params.append("buscar", buscar);
-        }
-
-        if (estado !== "") {
-            params.append("estado", estado);
-        }
-
         const response = await fetch("../api/expedientes/listar.php?" + params.toString(), {
             method: "GET",
             credentials: "include"
@@ -69,55 +89,104 @@ async function cargarExpedientes() {
         const result = await response.json();
 
         if (!result.success) {
-            message.textContent = result.message || "No se pudieron cargar los expedientes";
-            message.classList.add("message-error");
+            if (message) {
+                message.textContent = result.message || "No se pudieron cargar los expedientes.";
+            }
             return;
         }
 
-        const expedientes = result.data || [];
+        let expedientes = [];
+
+        if (Array.isArray(result.data)) {
+            expedientes = result.data;
+        } else if (result.data && Array.isArray(result.data.expedientes)) {
+            expedientes = result.data.expedientes;
+        }
+
+        expedientes = expedientes.filter(exp => exp && typeof exp === "object");
+
+        if (message) {
+            message.textContent = "Total encontrado: " + expedientes.length;
+        }
 
         if (expedientes.length === 0) {
-            message.textContent = "No hay expedientes registrados con esos criterios.";
-            tbody.innerHTML = "";
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align:center;">
+                        No hay expedientes registrados.
+                    </td>
+                </tr>
+            `;
             return;
         }
 
-        message.textContent = `Total encontrados: ${expedientes.length}`;
-
-        tbody.innerHTML = expedientes.map(exp => crearFilaExpediente(exp)).join("");
+        tbody.innerHTML = expedientes
+            .map(exp => crearFilaExpediente(exp))
+            .join("");
 
     } catch (error) {
         console.error(error);
-        message.textContent = "Error de conexión con el servidor";
-        message.classList.add("message-error");
+
+        if (message) {
+            message.textContent = "Error de conexión con el servidor.";
+        }
     }
 }
 
 function crearFilaExpediente(exp) {
-    const estadoTexto = formatoEstado(exp.estado_actual);
-    const estadoClase = claseEstado(exp.estado_actual);
+    if (!exp || typeof exp !== "object") {
+        return "";
+    }
+
+    const id = exp.id || "";
+    const numeroExpediente = exp.numero_expediente || "---";
+    const tipoActo = exp.tipo_acto || "Sin tipo de acto";
+    const clienteNombre = exp.cliente_nombre || "---";
+    const municipio = exp.municipio || "";
+    const numeroEscritura = exp.numero_escritura || "---";
+    const estadoActual = exp.estado_actual || "";
+    const responsable = exp.responsable_actual || "---";
+    const fechaRecepcion = exp.fecha_recepcion || "";
 
     return `
-        <tr>
-            <td>
-                <strong>${escaparHTML(exp.numero_expediente || "")}</strong>
+        <tr class="expediente-row">
+            <td data-label="Expediente">
+                <div class="exp-main">
+                    <strong>${escaparHTML(numeroExpediente)}</strong>
+                    <small>${escaparHTML(tipoActo)}</small>
+                </div>
             </td>
-            <td>${escaparHTML(exp.numero_escritura || "Sin dato")}</td>
-            <td>
-                ${escaparHTML(exp.cliente_nombre || "")}
-                <small>${escaparHTML(exp.cliente_telefono || "")}</small>
+
+            <td data-label="Cliente">
+                <div class="exp-client">
+                    <strong>${escaparHTML(clienteNombre)}</strong>
+                    <small>${escaparHTML(municipio)}</small>
+                </div>
             </td>
-            <td>${escaparHTML(exp.tipo_acto || "")}</td>
-            <td>
-                <span class="status-badge ${estadoClase}">
-                    ${estadoTexto}
+
+            <td data-label="Escritura">
+                <span class="exp-number">
+                    ${escaparHTML(numeroEscritura)}
                 </span>
             </td>
-            <td>${escaparHTML(exp.responsable_actual || "Sin responsable")}</td>
-            <td>${formatearFecha(exp.fecha_recepcion)}</td>
-            <td>
-                <a class="btn-table" href="expediente-ver.html?id=${exp.id}">
-                    Ver
+
+            <td data-label="Estado">
+                <span class="status-badge ${claseEstado(estadoActual)}">
+                    ${formatoEstado(estadoActual)}
+                </span>
+            </td>
+
+            <td data-label="Responsable">
+                ${escaparHTML(responsable)}
+            </td>
+
+            <td data-label="Recepción">
+                ${formatearFecha(fechaRecepcion)}
+            </td>
+
+            <td data-label="Acciones">
+                <a href="expediente-ver.html?id=${id}" class="btn-view-exp">
+                    Ver expediente
                 </a>
             </td>
         </tr>
@@ -138,12 +207,12 @@ function formatoEstado(estado) {
         CANCELACION: "Cancelación"
     };
 
-    return estados[estado] || estado;
+    return estados[estado] || estado || "---";
 }
 
 function claseEstado(estado) {
     const clases = {
-       SALE_FOLIO_NOTARIA: "status-blue",
+        SALE_FOLIO_NOTARIA: "status-blue",
         FOLIO_FIRMA: "status-purple",
         INGRESA_FOLIO_NOTARIA: "status-indigo",
         TRASLADO_ENTREGADO: "status-orange",
@@ -160,7 +229,7 @@ function claseEstado(estado) {
 
 function formatearFecha(fecha) {
     if (!fecha) {
-        return "Sin fecha";
+        return "---";
     }
 
     const partes = fecha.split("-");
@@ -173,7 +242,7 @@ function formatearFecha(fecha) {
 }
 
 function escaparHTML(texto) {
-    return String(texto)
+    return String(texto ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")

@@ -6,7 +6,7 @@
     <title>Expedientes | Control de Escrituras</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css?v=5">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
             ☰
         </button>
-        
+
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <aside class="sidebar" id="sidebar">
@@ -50,20 +50,31 @@
                 </div>
             </header>
 
-            <section class="table-panel">
+            <section class="expedientes-panel">
 
-                <div class="table-toolbar">
-
-                    <div class="search-box">
-                        <label for="buscarExpediente">Buscar expediente</label>
-                        <input type="text" id="buscarExpediente"
-                            placeholder="Expediente, escritura, cliente, notaría...">
+                <div class="expedientes-header">
+                    <div>
+                        <h2>Expedientes registrados</h2>
+                        <p>Consulta, filtra y revisa el avance de cada escritura.</p>
                     </div>
 
-                    <div class="search-box">
-                        <label for="estadoFiltro">Estado</label>
-                        <select id="estadoFiltro">
+                    <a href="expediente-nuevo.html" class="btn-primary">
+                        + Nuevo expediente
+                    </a>
+                </div>
 
+                <div class="expedientes-filters">
+
+                    <div class="filter-field filter-search">
+                        <label for="buscarExpediente">Buscar expediente</label>
+                        <input type="text" id="buscarExpediente"
+                            placeholder="Cliente, expediente, escritura o responsable...">
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="filtroEstado">Estado</label>
+                        <select id="filtroEstado">
+                            <option value="">Todos los estados</option>
                             <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
                             <option value="FOLIO_FIRMA">Folio firma</option>
                             <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
@@ -77,26 +88,25 @@
                         </select>
                     </div>
 
-                    <div class="toolbar-actions">
-                        <button id="btnBuscar" class="btn-primary-btn">Buscar</button>
-                        <button id="btnLimpiar" class="btn-secondary-btn">Limpiar</button>
-                        <a href="expediente-nuevo.html" class="btn-primary">Nuevo</a>
+                    <div class="filter-actions">
+                        <button type="button" class="btn-secondary-btn" id="btnLimpiarFiltros">
+                            Limpiar
+                        </button>
                     </div>
 
                 </div>
 
-                <div id="tableMessage" class="table-message">
-                    Cargando expedientes...
+                <div class="expedientes-summary">
+                    <span id="expedientesMessage">Cargando expedientes...</span>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="data-table">
+                <div class="table-responsive expedientes-table-wrap">
+                    <table class="data-table expedientes-table">
                         <thead>
                             <tr>
                                 <th>Expediente</th>
-                                <th>Escritura</th>
                                 <th>Cliente</th>
-                                <th>Acto jurídico</th>
+                                <th>Escritura</th>
                                 <th>Estado</th>
                                 <th>Responsable</th>
                                 <th>Recepción</th>
