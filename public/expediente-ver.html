@@ -268,15 +268,17 @@
                         <label for="edit_tipo_acto">Tipo de acto jurídico *</label>
                         <select id="edit_tipo_acto" required>
                             <option value="">Seleccione una opción</option>
-                            <option value="Compraventa">Compraventa</option>
-                            <option value="Donación">Donación</option>
-                            <option value="Adjudicación por herencia">Adjudicación por herencia</option>
-                            <option value="Cancelación de hipoteca">Cancelación de hipoteca</option>
+                            <option value="Compra venta fracción">Compra venta fracción</option>
+                            <option value="Compraventa totalidad">Compraventa totalidad</option>
+                            <option value="Poder con dominio">Poder con dominio</option>
+                            <option value="Información testimonial">Información testimonial</option>
+                            <option value="Testamento">Testamento</option>
+                            <option value="Acta aclaratoria de error">Acta aclaratoria de error</option>
+                            <option value="Sucesorio intestamentario">Sucesorio intestamentario</option>
                             <option value="Cesión de derechos">Cesión de derechos</option>
-                            <option value="Poder">Poder</option>
-                            <option value="Protocolización">Protocolización</option>
-                            <option value="Rectificación">Rectificación</option>
-                            <option value="Otro">Otro</option>
+                            <option value="Aclaratoria de nombre">Aclaratoria de nombre</option>
+                            <option value="Donación fracción">Donación fracción</option>
+                            <option value="Donación totalidad">Donación totalidad</option>
                         </select>
                     </div>
 
@@ -349,8 +351,7 @@
                     <div class="form-group span-2">
                         <label for="edit_comentario_correccion">Motivo de la corrección *</label>
                         <textarea id="edit_comentario_correccion" rows="3"
-                            placeholder="Ej. Se corrige número de escritura por error de captura."
-                            required></textarea>
+                            placeholder="Ej. Se corrige número de escritura por error de captura." required></textarea>
                     </div>
 
                 </div>
@@ -431,7 +432,7 @@
     </div>
 
     <script src="../js/auth.js"></script>
-    <script src="../js/expediente-ver.js"></script>
+    <script src="../js/expediente-ver.js?=v2"></script>
     <script src="../js/mobile_menu.js"></script>
 
 </body>
