@@ -75,41 +75,40 @@ async function cargarDetalleExpediente(id) {
     }
 }
 
-function pintarExpediente(exp) {
-    const estadoTexto = formatoEstado(exp.estado_actual);
-    const estadoClase = claseEstado(exp.estado_actual);
+function pintarExpediente(expediente) {
+    const tituloExpediente = document.getElementById("tituloExpediente");
 
-    document.getElementById("tituloExpediente").textContent = "Expediente " + valor(exp.numero_expediente);
-    document.getElementById("numeroExpediente").textContent = valor(exp.numero_expediente);
-    document.getElementById("clientePrincipal").textContent = valor(exp.cliente_nombre);
+    if (tituloExpediente) {
+        tituloExpediente.textContent = expediente.numero_expediente || "Expediente";
+    }
 
-    const badge = document.getElementById("estadoActualBadge");
-    badge.textContent = estadoTexto;
-    badge.className = "status-badge " + estadoClase;
+    document.getElementById("numeroExpediente").textContent = expediente.numero_expediente || "---";
+    document.getElementById("clientePrincipal").textContent = expediente.cliente_nombre || "---";
 
-    document.getElementById("responsableActual").textContent =
-        "Responsable: " + valor(exp.responsable_actual, "Sin responsable");
+    document.getElementById("estadoActualBadge").textContent = formatoEstado(expediente.estado_actual);
+    document.getElementById("estadoActualBadge").className = "status-badge " + claseEstado(expediente.estado_actual);
 
-    document.getElementById("infoNumeroExpediente").textContent = valor(exp.numero_expediente);
-    document.getElementById("infoFechaRecepcion").textContent = formatearFecha(exp.fecha_recepcion);
-    document.getElementById("infoFechaCierre").textContent = formatearFecha(exp.fecha_cierre);
-    document.getElementById("infoCreadoPor").textContent = valor(exp.creado_por_nombre, "Sin dato");
+    document.getElementById("responsableActual").textContent = expediente.responsable_actual || "---";
 
-    document.getElementById("infoClienteNombre").textContent = valor(exp.cliente_nombre);
-    document.getElementById("infoClienteTelefono").textContent = valor(exp.cliente_telefono, "Sin teléfono");
-    document.getElementById("infoClienteCorreo").textContent = valor(exp.cliente_correo, "Sin correo");
-    document.getElementById("infoClienteDireccion").textContent = valor(exp.cliente_direccion, "Sin dirección");
+    document.getElementById("infoNumeroExpediente").textContent = expediente.numero_expediente || "---";
+    document.getElementById("infoFechaRecepcion").textContent = formatearFecha(expediente.fecha_recepcion);
+    document.getElementById("infoFechaCierre").textContent = formatearFecha(expediente.fecha_cierre);
+    document.getElementById("infoCreadoPor").textContent = expediente.creado_por_nombre || "---";
 
-    document.getElementById("infoNumeroEscritura").textContent = valor(exp.numero_escritura, "Sin dato");
-    document.getElementById("infoFechaEscritura").textContent = formatearFecha(exp.fecha_escritura);
-    document.getElementById("infoTipoActo").textContent = valor(exp.tipo_acto);
-    document.getElementById("infoNotaria").textContent = valor(exp.notaria, "Sin dato");
-    document.getElementById("infoMunicipio").textContent = valor(exp.municipio, "Sin dato");
-    document.getElementById("infoEstado").textContent = valor(exp.estado, "Sin dato");
-    document.getElementById("infoRegistroPublico").textContent = valor(exp.registro_publico, "Sin dato");
+    document.getElementById("infoClienteNombre").textContent = expediente.cliente_nombre || "---";
+    document.getElementById("infoClienteTelefono").textContent = expediente.cliente_telefono || "---";
+    document.getElementById("infoClienteCorreo").textContent = expediente.cliente_correo || "---";
+    document.getElementById("infoClienteDireccion").textContent = expediente.cliente_direccion || "---";
 
-    document.getElementById("infoObservaciones").textContent =
-        valor(exp.observaciones, "Sin observaciones");
+    document.getElementById("infoNumeroEscritura").textContent = expediente.numero_escritura || "---";
+    document.getElementById("infoFechaEscritura").textContent = formatearFecha(expediente.fecha_escritura);
+    document.getElementById("infoTipoActo").textContent = expediente.tipo_acto || "---";
+    document.getElementById("infoNotaria").textContent = expediente.notaria || "---";
+    document.getElementById("infoMunicipio").textContent = expediente.municipio || "---";
+    document.getElementById("infoEstado").textContent = expediente.estado || "---";
+    document.getElementById("infoRegistroPublico").textContent = expediente.registro_publico || "---";
+
+    document.getElementById("infoObservaciones").textContent = expediente.observaciones || "Sin observaciones";
 }
 
 function pintarHistorial(seguimiento) {

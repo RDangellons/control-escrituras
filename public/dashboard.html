@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../css/style.css">
+
 </head>
 
 <body>
 
     <div class="app-layout">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+            ☰
+        </button>
 
-        <aside class="sidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-logo">CE</div>
                 <div>
@@ -34,19 +40,27 @@
 
         <main class="main-content">
 
-            <header class="topbar">
-                <div>
-                    <h1>Panel principal</h1>
-                    <p>Resumen general de escrituras y expedientes</p>
-                </div>
 
-                <div class="user-box">
+            <section class="dashboard-notarial-panel">
+
+                <div>
                     <span id="userName">Usuario</span>
                     <small id="userRole">Rol</small>
+                    <span>Control documental</span>
+                    <h2>Sistema de escrituras</h2>
+                    <p>
+                        Consulta el avance general de los expedientes, trámites activos,
+                        entregas y cancelaciones.
+                    </p>
                 </div>
-            </header>
 
-            <section class="cards-grid">
+                <a href="expediente-nuevo.html" class="btn-dashboard-main">
+                    + Registrar expediente
+                </a>
+
+            </section>
+
+            <section class="cards-grid dashboard-cards-notarial">
 
                 <article class="stat-card">
                     <span>Total de expedientes</span>
@@ -89,8 +103,8 @@
                 </article>
 
                 <article class="stat-card">
-                     <span>Cancelación</span>
-                     <strong id="cancelacion">0</strong>
+                    <span>Cancelación</span>
+                    <strong id="cancelacion">0</strong>
                 </article>
             </section>
 
@@ -99,8 +113,10 @@
 
     </div>
 
+
     <script src="../js/auth.js"></script>
     <script src="../js/dashboard.js"></script>
+    <script src="../js/mobile_menu.js"></script>
 
 </body>
 

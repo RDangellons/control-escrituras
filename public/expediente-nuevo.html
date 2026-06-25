@@ -12,8 +12,13 @@
 <body>
 
     <div class="app-layout">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+            ☰
+        </button>
 
-        <aside class="sidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-logo">CE</div>
                 <div>
@@ -34,19 +39,27 @@
 
         <main class="main-content">
 
-            <header class="topbar">
+            
+            <section class="nuevo-expediente-hero">
+                
                 <div>
-                    <h1>Nuevo expediente</h1>
-                    <p>Registro inicial de escritura y control documental</p>
-                </div>
-
-                <div class="user-box">
+                    <span>Registro notarial</span>
+                    <h2>Nuevo expediente</h2>
                     <span id="userName">Usuario</span>
                     <small id="userRole">Rol</small>
+                
+           
+                    <p>
+                        Capture los datos principales de la escritura, cliente, trámite y estado inicial del expediente.
+                    </p>
                 </div>
-            </header>
 
-            <section class="form-panel">
+                <a href="expedientes.html" class="btn-secondary-btn">
+                    Regresar a expedientes
+                </a>
+            </section>
+
+            <section class="form-panel  nuevo-expediente-panel">
 
                 <form id="expedienteForm">
 
@@ -119,15 +132,17 @@
                             <label for="tipo_acto">Tipo de acto jurídico *</label>
                             <select id="tipo_acto" required>
                                 <option value="">Seleccione una opción</option>
-                                <option value="Compraventa">Compraventa</option>
-                                <option value="Donación">Donación</option>
-                                <option value="Adjudicación por herencia">Adjudicación por herencia</option>
-                                <option value="Cancelación de hipoteca">Cancelación de hipoteca</option>
+                                <option value="Compra venta fracción">Compra venta fracción</option>
+                                <option value="Compraventa totalidad">Compraventa totalidad</option>
+                                <option value="Poder con dominio">Poder con dominio</option>
+                                <option value="Información testimonial">Información testimonial</option>
+                                <option value="Testamento">Testamento</option>
+                                <option value="Acta aclaratoria de error">Acta aclaratoria de error</option>
+                                <option value="Sucesorio intestamentario">Sucesorio intestamentario</option>
                                 <option value="Cesión de derechos">Cesión de derechos</option>
-                                <option value="Poder">Poder</option>
-                                <option value="Protocolización">Protocolización</option>
-                                <option value="Rectificación">Rectificación</option>
-                                <option value="Otro">Otro</option>
+                                <option value="Aclaratoria de nombre">Aclaratoria de nombre</option>
+                                <option value="Donación fracción">Donación fracción</option>
+                                <option value="Donación totalidad">Donación totalidad</option>
                             </select>
                         </div>
 
@@ -208,6 +223,7 @@
 
     <script src="../js/auth.js"></script>
     <script src="../js/expediente-form.js"></script>
+    <script src="../js/mobile_menu.js"></script>
 
 </body>
 

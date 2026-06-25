@@ -6,14 +6,21 @@
     <title>Ver Expediente | Control de Escrituras</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- OJO: debe ser styles.css si ese es el archivo que estás editando -->
+    <link rel="stylesheet" href="../css/style.css?v=7">
 </head>
 
 <body>
 
+    <button class="mobile-menu-btn" id="mobileMenuBtn" type="button">
+        ☰
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="app-layout">
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-logo">CE</div>
                 <div>
@@ -36,7 +43,7 @@
 
             <header class="topbar">
                 <div>
-                    <h1 id="tituloExpediente">Detalle del expediente</h1>
+                    <h1>Detalle del expediente</h1>
                     <p>Consulta completa del expediente y su historial</p>
                 </div>
 
@@ -50,7 +57,12 @@
                 Cargando expediente...
             </section>
 
-            <section id="detalleContenido" style="display: none;">
+            <section id="detalleContenido" class="detail-panel expediente-view-panel" style="display: none;">
+
+                <div class="expediente-title-card">
+                    <h2 id="tituloExpediente">Expediente</h2>
+                    <p>Detalle general de la escritura y seguimiento del trámite.</p>
+                </div>
 
                 <div class="detail-header-card">
 
@@ -190,11 +202,8 @@
                         Cargando documentos...
                     </div>
 
-                    <div id="documentosContainer" class="documents-grid">
-                    </div>
+                    <div id="documentosContainer" class="documents-grid"></div>
                 </section>
-
-
 
                 <section class="detail-card full-width-card">
                     <div class="section-title-row">
@@ -204,172 +213,169 @@
                         </div>
                     </div>
 
-                    <div id="historialContainer" class="timeline">
-                    </div>
+                    <div id="historialContainer" class="timeline"></div>
                 </section>
 
-
-
-
-                <div id="modalEditar" class="modal-overlay" style="display: none;">
-
-                    <div class="modal-card modal-large">
-
-                        <div class="modal-header">
-                            <div>
-                                <h2>Editar expediente</h2>
-                                <p>Corrige datos capturados por error. Toda corrección quedará en bitácora.</p>
-                            </div>
-
-                            <button type="button" class="modal-close" onclick="cerrarModalEditar()">
-                                ×
-                            </button>
-                        </div>
-
-                        <form id="editarForm">
-
-                            <div class="form-grid">
-
-                                <div class="form-group">
-                                    <label for="edit_numero_expediente">Número de expediente *</label>
-                                    <input type="text" id="edit_numero_expediente" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_numero_escritura">Número de escritura</label>
-                                    <input type="text" id="edit_numero_escritura">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_fecha_escritura">Fecha de escritura</label>
-                                    <input type="date" id="edit_fecha_escritura">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_tipo_acto">Tipo de acto jurídico *</label>
-                                    <select id="edit_tipo_acto" required>
-                                        <option value="">Seleccione una opción</option>
-                                        <option value="Compraventa">Compraventa</option>
-                                        <option value="Donación">Donación</option>
-                                        <option value="Adjudicación por herencia">Adjudicación por herencia</option>
-                                        <option value="Cancelación de hipoteca">Cancelación de hipoteca</option>
-                                        <option value="Cesión de derechos">Cesión de derechos</option>
-                                        <option value="Poder">Poder</option>
-                                        <option value="Protocolización">Protocolización</option>
-                                        <option value="Rectificación">Rectificación</option>
-                                        <option value="Otro">Otro</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group span-2">
-                                    <label for="edit_cliente_nombre">Nombre del cliente *</label>
-                                    <input type="text" id="edit_cliente_nombre" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_cliente_telefono">Teléfono</label>
-                                    <input type="text" id="edit_cliente_telefono">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_cliente_correo">Correo</label>
-                                    <input type="email" id="edit_cliente_correo">
-                                </div>
-
-                                <div class="form-group span-2">
-                                    <label for="edit_cliente_direccion">Dirección</label>
-                                    <textarea id="edit_cliente_direccion" rows="2"></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_notaria">Notaría</label>
-                                    <input type="text" id="edit_notaria">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_municipio">Municipio</label>
-                                    <input type="text" id="edit_municipio">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_estado">Estado</label>
-                                    <input type="text" id="edit_estado">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_registro_publico">Registro Público</label>
-                                    <input type="text" id="edit_registro_publico">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_estado_actual">Estado actual *</label>
-                                    <select id="edit_estado_actual" required>
-                                        <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
-                                        <option value="FOLIO_FIRMA">Folio firma</option>
-                                        <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
-                                        <option value="TRASLADO_ENTREGADO">Traslado entregado</option>
-                                        <option value="TRASLADO_RECIBIDO">Traslado recibido</option>
-                                        <option value="CIERRE_NOTARIA">Cierre en notaría</option>
-                                        <option value="CIERRE_GESTOR">Cierre con gestor</option>
-                                        <option value="ENTREGA_ESCRITURA">Entrega de escritura</option>
-                                        <option value="ENTREGA_EXPEDIENTE">Entrega de expediente</option>
-                                        <option value="CANCELACION">Cancelación</option>
-
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="edit_responsable_actual">Responsable actual</label>
-                                    <input type="text" id="edit_responsable_actual">
-                                </div>
-
-                                <div class="form-group span-2">
-                                    <label for="edit_observaciones">Observaciones</label>
-                                    <textarea id="edit_observaciones" rows="3"></textarea>
-                                </div>
-
-                                <div class="form-group span-2">
-                                    <label for="edit_comentario_correccion">Motivo de la corrección *</label>
-                                    <textarea id="edit_comentario_correccion" rows="3"
-                                        placeholder="Ej. Se corrige número de escritura por error de captura."
-                                        required></textarea>
-                                </div>
-
-                            </div>
-
-                            <div id="editarMessage" class="form-message"></div>
-
-                            <div class="form-actions">
-                                <button type="button" class="btn-secondary-btn" onclick="cerrarModalEditar()">
-                                    Cancelar
-                                </button>
-
-                                <button type="submit" class="btn-primary-btn">
-                                    Guardar corrección
-                                </button>
-                            </div>
-
-                        </form>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-actions">
+                <div class="form-actions detail-actions">
                     <a href="expedientes.html" class="btn-secondary">Regresar</a>
-
 
                     <button type="button" class="btn-primary-btn" onclick="abrirModalEditar()">
                         Editar datos
                     </button>
                 </div>
-                </form>
+
+            </section>
+
+        </main>
 
     </div>
 
+    <!-- MODAL EDITAR -->
+    <div id="modalEditar" class="modal-overlay" style="display: none;">
 
+        <div class="modal-card modal-large">
 
+            <div class="modal-header">
+                <div>
+                    <h2>Editar expediente</h2>
+                    <p>Corrige datos capturados por error. Toda corrección quedará en bitácora.</p>
+                </div>
+
+                <button type="button" class="modal-close" onclick="cerrarModalEditar()">
+                    ×
+                </button>
+            </div>
+
+            <form id="editarForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="edit_numero_expediente">Número de expediente *</label>
+                        <input type="text" id="edit_numero_expediente" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_numero_escritura">Número de escritura</label>
+                        <input type="text" id="edit_numero_escritura">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_fecha_escritura">Fecha de escritura</label>
+                        <input type="date" id="edit_fecha_escritura">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_tipo_acto">Tipo de acto jurídico *</label>
+                        <select id="edit_tipo_acto" required>
+                            <option value="">Seleccione una opción</option>
+                            <option value="Compra venta fracción">Compra venta fracción</option>
+                            <option value="Compraventa totalidad">Compraventa totalidad</option>
+                            <option value="Poder con dominio">Poder con dominio</option>
+                            <option value="Información testimonial">Información testimonial</option>
+                            <option value="Testamento">Testamento</option>
+                            <option value="Acta aclaratoria de error">Acta aclaratoria de error</option>
+                            <option value="Sucesorio intestamentario">Sucesorio intestamentario</option>
+                            <option value="Cesión de derechos">Cesión de derechos</option>
+                            <option value="Aclaratoria de nombre">Aclaratoria de nombre</option>
+                            <option value="Donación fracción">Donación fracción</option>
+                            <option value="Donación totalidad">Donación totalidad</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label for="edit_cliente_nombre">Nombre del cliente *</label>
+                        <input type="text" id="edit_cliente_nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_cliente_telefono">Teléfono</label>
+                        <input type="text" id="edit_cliente_telefono">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_cliente_correo">Correo</label>
+                        <input type="email" id="edit_cliente_correo">
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label for="edit_cliente_direccion">Dirección</label>
+                        <textarea id="edit_cliente_direccion" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_notaria">Notaría</label>
+                        <input type="text" id="edit_notaria">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_municipio">Municipio</label>
+                        <input type="text" id="edit_municipio">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_estado">Estado</label>
+                        <input type="text" id="edit_estado">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_registro_publico">Registro Público</label>
+                        <input type="text" id="edit_registro_publico">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_estado_actual">Estado actual *</label>
+                        <select id="edit_estado_actual" required>
+                            <option value="SALE_FOLIO_NOTARIA">Sale folio notaría</option>
+                            <option value="FOLIO_FIRMA">Folio firma</option>
+                            <option value="INGRESA_FOLIO_NOTARIA">Ingresa folio para notaría</option>
+                            <option value="TRASLADO_ENTREGADO">Traslado entregado</option>
+                            <option value="TRASLADO_RECIBIDO">Traslado recibido</option>
+                            <option value="CIERRE_NOTARIA">Cierre en notaría</option>
+                            <option value="CIERRE_GESTOR">Cierre con gestor</option>
+                            <option value="ENTREGA_ESCRITURA">Entrega de escritura</option>
+                            <option value="ENTREGA_EXPEDIENTE">Entrega de expediente</option>
+                            <option value="CANCELACION">Cancelación</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_responsable_actual">Responsable actual</label>
+                        <input type="text" id="edit_responsable_actual">
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label for="edit_observaciones">Observaciones</label>
+                        <textarea id="edit_observaciones" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label for="edit_comentario_correccion">Motivo de la corrección *</label>
+                        <textarea id="edit_comentario_correccion" rows="3"
+                            placeholder="Ej. Se corrige número de escritura por error de captura." required></textarea>
+                    </div>
+
+                </div>
+
+                <div id="editarMessage" class="form-message"></div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary-btn" onclick="cerrarModalEditar()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="btn-primary-btn">
+                        Guardar corrección
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL DOCUMENTO -->
     <div id="modalDocumento" class="modal-overlay" style="display: none;">
 
         <div class="modal-card">
@@ -425,11 +431,10 @@
         </div>
 
     </div>
-    </main>
-
 
     <script src="../js/auth.js"></script>
-    <script src="../js/expediente-ver.js"></script>
+    <script src="../js/expediente-ver.js?=v2"></script>
+    <script src="../js/mobile_menu.js"></script>
 
 </body>
 
