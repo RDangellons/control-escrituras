@@ -1,63 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <title>Login | Control de Escrituras</title>
+    <title>Iniciar sesión | Control de Escrituras</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css?v=13">
 </head>
+
 <body class="login-body">
 
-    <main class="login-container">
+    <main class="login-page">
 
-        <section class="login-card">
+        <section class="login-card login-card-notarial">
 
-            <div class="login-header">
-                <div class="login-logo">
-                    CE
-                </div>
+            <div class="login-logo-box">
+                <img src="../img/logo.png" alt="Logo del sistema" class="login-logo-img">
+            </div>
 
+            <div class="login-title">
+                <span>Sistema documental</span>
                 <h1>Control de Escrituras</h1>
-                <p>Sistema de control documental y expedientes</p>
+                <p>Acceso interno para la administración de expedientes notariales.</p>
             </div>
 
             <form id="loginForm" class="login-form">
 
                 <div class="form-group">
                     <label for="usuario">Usuario</label>
-                    <input 
-                        type="text" 
-                        id="usuario" 
-                        name="usuario" 
-                        placeholder="Ingresa tu usuario"
-                        autocomplete="username"
-                        required
-                    >
+                    <input type="text" id="usuario" autocomplete="username" placeholder="Ingrese su usuario" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        placeholder="Ingresa tu contraseña"
-                        autocomplete="current-password"
-                        required
-                    >
+
+                    <div class="password-field">
+                        <input type="password" id="password" autocomplete="current-password"
+                            placeholder="Ingrese su contraseña" required>
+
+                        
+                    </div>
                 </div>
 
-                <div id="loginMessage" class="login-message"></div>
+                <div id="loginMessage" class="form-message"></div>
 
                 <button type="submit" class="btn-login">
-                    Ingresar
+                    Iniciar sesión
                 </button>
 
             </form>
 
             <div class="login-footer">
-                <small>Acceso exclusivo para personal autorizado</small>
+                <p>Versión 1.0 · Sistema de Control de Escrituras</p>
             </div>
 
         </section>
@@ -65,5 +60,21 @@
     </main>
 
     <script src="../js/auth.js"></script>
+
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener("click", () => {
+                const isPassword = passwordInput.type === "password";
+
+                passwordInput.type = isPassword ? "text" : "password";
+                togglePassword.textContent = isPassword ? "Ocultar" : "Ver";
+            });
+        }
+    </script>
+
 </body>
+
 </html>
