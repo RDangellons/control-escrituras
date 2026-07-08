@@ -2934,3 +2934,46 @@ button {
         height: 40px;
     }
 }
+
+/* =========================
+   BOTÓN ELIMINAR EXPEDIENTE
+========================= */
+
+.exp-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-delete-exp {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(220, 38, 38, 0.22);
+}
+
+.btn-delete-exp:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(220, 38, 38, 0.30);
+}
+
+@media (max-width: 900px) {
+    .exp-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .btn-delete-exp,
+    .btn-view-exp {
+        width: 100%;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

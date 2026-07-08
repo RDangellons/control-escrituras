@@ -35,6 +35,7 @@ try {
         FROM expedientes e
         INNER JOIN clientes c ON c.id = e.cliente_id
         WHERE 1 = 1
+       
     ";
 
     $params = [];

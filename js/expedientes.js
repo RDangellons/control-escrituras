@@ -188,6 +188,9 @@ function crearFilaExpediente(exp) {
                 <a href="expediente-ver.html?id=${id}" class="btn-view-exp">
                     Ver expediente
                 </a>
+                <button type="button" class="btn-delete-exp" onclick="eliminarExpediente(${id})">
+            Eliminar
+        </button>
             </td>
         </tr>
     `;
@@ -248,4 +251,46 @@ function escaparHTML(texto) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+async function eliminarExpediente(id) {
+    if (!id) {
+        alert("No se encontró el expediente.");
+        return;
+    }
+
+    const confirmar = confirm(
+        "¿Seguro que deseas eliminar este expediente?\n\nEsta acción ocultará el expediente del sistema, pero no lo borrará definitivamente de la base de datos."
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+        const response = await fetch("../api/expedientes/eliminar.php", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            alert(result.message || "No se pudo eliminar el expediente.");
+            return;
+        }
+
+        alert("Expediente eliminado correctamente.");
+        cargarExpedientes();
+
+    } catch (error) {
+        console.error(error);
+        alert("Error de conexión con el servidor.");
+    }
 }
